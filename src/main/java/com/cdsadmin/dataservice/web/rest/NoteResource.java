@@ -112,10 +112,11 @@ public class NoteResource {
         return ResponseUtil.wrapOrNotFound(note);
     }
 
-    @GetMapping("/getNotesByCustomer/{id}")
-    public  List<Note> getNotesByCustomer(@PathVariable Long id) {
-        log.debug("REST request to get Note : {}", id);
-        List<Merger> mergers = mergerRepo.findByCustomerFromOrCustomerTo(id, id);
+    @GetMapping("/getNotesByCustomer/{customerId}/{systemId}")
+    public  List<Note> getNotesByCustomer(@PathVariable String customerId, @PathVariable String systemId) {
+        log.debug("REST request to get Note : {}", customerId);
+        //List<Merger> mergers = mergerRepo.findByCustomerFromOrCustomerTo(id.toString(), id.toString(), systemId.toString());
+        List<Merger> mergers = mergerRepo.findByCustomerFromOrCustomerTo(customerId, customerId, systemId);
         List<Note> notes = new ArrayList<Note>();
         for(Merger merger : mergers) {
         	//List<Note> noteByMerger = noteRepository.findByMerger(merger);
